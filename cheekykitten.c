@@ -8,7 +8,7 @@
 int main (int argc, char **argv) {
     
     char version[] = "CheekyKitten Beta0.1 by Josjuar Lister 2021-2022\n";
-    char usage[] = "%s\n\n%s [options] <input file> <output file>\n"
+    char usage[] = "%s\n\n%s [options] <input file> <output file>]\n"
         "\t-h           Print this help menu\n"
         "\t-k <key>     RESERVED FOR FUTURE IMPLEMENTATION\n"
         "\t-x           Output to file in readable hex (default: binary)\n";
@@ -40,10 +40,12 @@ int main (int argc, char **argv) {
     argc -= optind;
     argv += optind;
 
-    int streq = strcmp(argv[0], argv[1]);
-    if (streq == 0) {
-        printf("Warning! setting the same input and output will destroy the data\n");
-        exit(1);
+    if (argv[0] != NULL && argv[1] != NULL) {
+        int streq = strcmp(argv[0], argv[1]);
+        if (streq == 0) {
+            printf("Warning! setting the same input and output will destroy the data\n");
+            exit(5318008);
+        }
     }
     FILE *fo = argc > 1 ? fopen (argv[1], "wb") : stdout;
     if (fo == NULL) {
