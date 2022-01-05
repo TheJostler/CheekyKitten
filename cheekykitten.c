@@ -50,7 +50,9 @@ int main (int argc, char **argv) {
                 printf (" %02x %02x ", x, y);
                 }
             }
-        putchar ('\n');
+        if (fo == stdout) {
+            putchar ('\n');
+        }
     }
 
     for (i = 0; i < bytes; i++) /* output final partial buf */
@@ -81,11 +83,12 @@ int main (int argc, char **argv) {
             printf (" %02x %02x ", x, y);
             }
         }
-    putchar ('\n');
 
     if (fi != stdin)
         fclose (fi);
     if (fo != stdout)
         fclose (fo);
+    else 
+        putchar('\n');
     return 0;
 }
