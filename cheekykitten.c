@@ -8,7 +8,7 @@
 int main (int argc, char **argv) {
     
     char version[] = "CheekyKitten Beta0.1 by Josjuar Lister 2021-2022\n";
-    char usage[] = "%s\n\n%s [options] <input file> <output file>]\n"
+    char usage[] = "%s\n\n%s [options] <input file> <output file>\n"
         "\t-h           Print this help menu\n"
         "\t-k <key>     RESERVED FOR FUTURE IMPLEMENTATION\n"
         "\t-x           Output to file in readable hex (default: binary)\n";
