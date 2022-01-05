@@ -17,21 +17,15 @@ as so (A is 16's, B is 1's)
 |16 | 1  | 16 | 1  | 16 | 1  | 16 | 1 | <-- places
 |group 1 | group 2 | group 3 | group 4|
 
-I haven't written any computer code but this is how it should work:
 
 (For every group or every two bytes of input: x,y)
-*All mathmatical operations are performed in base 16... so mod 10 would be mod 16 in regular decimal
+*All mathmatical operations are performed in base 16... so mod 0x10 would be mod 16 in regular decimal
  X | Y --> Input Bytes
 ab | cd --> To help you visualise what the variables represent
 
-b = x mod 10
-d = y mod 10
-c = y / 10
-  if ( b = c ) --> Skip to next byte, both x and y will be the same anyway...
-a = x - b
-b = b * 10 //
-and finally define the new encoded bytes:
-x = a + c
-y = b + d
+b = x mod 0x10
+d = y mod 0x10
+x = y -d + x / 0x10;
+y = d * 0x10 + b;
 
 Move onto next group...
