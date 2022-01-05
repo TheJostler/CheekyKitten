@@ -10,8 +10,7 @@ int main (int argc, char **argv) {
     char version[] = "CheekyKitten Beta0.1 by Josjuar Lister 2021-2022\n";
     char usage[] = "%s\n\n%s [options] <input file> <output file>]\n"
         "\t-h           Print this help menu\n"
-        "\t-k <key>     RESERVED FOR FUTURE IMPLEMENTATION\n"
-        "\t-x           Output to file in readable hex (default: binary)\n";
+        "\t-k <key>     RESERVED FOR FUTURE IMPLEMENTATION\n";
 
     char S[96][2] = { {'E','F'},{'B','B'},{'B','F'},{'5','2'},{'6','1'},{'7','2'},{'6','5'},{'6','C'},{'7','9'},{'2','0'},{'7','3'},{'6','5'},{'7','4'},{'2','0'},{'6','6'},{'6','F'},{'6','F'},{'7','4'},{'2','0'},{'6','9'},{'6','E'},{'2','0'},{'7','9'},{'6','F'},{'7','5'},{'7','2'},{'2','0'},{'6','E'},{'6','5'},{'6','9'},{'6','7'},{'6','8'},{'6','2'},{'6','F'},{'7','2'},{'E','2'},{'8','0'},{'9','9'},{'7','3'},{'2','0'},{'6','8'},{'6','F'},{'7','5'},{'7','3'},{'6','5'},{'2','C'},{'2','0'},{'5','3'},{'6','F'},{'2','0'},{'7','4'},{'6','8'},{'6','1'},{'7','4'},{'2','0'},{'6','8'},{'6','5'},{'2','0'},{'6','4'},{'6','F'},{'6','5'},{'7','3'},{'2','0'},{'6','E'},{'6','F'},{'7','4'},{'2','0'},{'6','7'},{'6','5'},{'7','4'},{'2','0'},{'7','4'},{'6','9'},{'7','2'},{'6','5'},{'6','4'},{'2','0'},{'6','F'},{'6','6'},{'2','0'},{'7','9'},{'6','F'},{'7','5'},{'2','0'},{'6','1'},{'6','E'},{'6','4'},{'2','0'},{'6','8'},{'6','1'},{'7','4'},{'6','5'},{'2','0'},{'7','9'},{'6','F'},{'7','5'} };
     int opt;
@@ -19,7 +18,7 @@ int main (int argc, char **argv) {
     size_t bytes = 0, i, readsz = sizeof buf;
     
         /* read command line arguments */
-    while ((opt = getopt(argc, argv, "hxk:")) != -1)
+    while ((opt = getopt(argc, argv, "hk:")) != -1)
         switch((char)opt) {
         case 'h':
             fprintf(stderr, usage, version, argv[0]);
@@ -28,12 +27,8 @@ int main (int argc, char **argv) {
             printf("Key is: %s\n", optarg);
             break;
             //key
-        case 'x':
-            printf("Hex output is on!\n");
-            break;
-            //Output hex
         default :
-            printf("Unexpected argument: %s\n", optarg);
+            printf("Unexpected argument\n");
             fprintf(stderr, usage, version, argv[0]);
             exit(1);
         }
