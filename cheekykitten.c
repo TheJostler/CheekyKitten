@@ -7,7 +7,7 @@
 
 int main (int argc, char **argv) {
     
-    char version[] = "CheekyKitten Beta0.1 by Josjuar Lister 2021-2022\n";
+    char version[] = "CheekyKitten Beta0.2 by Josjuar Lister 2021-2022\n";
     char usage[] = "%s\n\n%s [options] <input file> <output file>\n"
         "CheekyKitten will default to stdout/stdin if i/o files are provided\n\n"
         "\t-h           Print this help menu\n"
