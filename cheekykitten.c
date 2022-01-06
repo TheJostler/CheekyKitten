@@ -8,21 +8,27 @@
 int main (int argc, char **argv) {
     
     char version[] = "CheekyKitten Beta0.1 by Josjuar Lister 2021-2022\n";
-    char usage[] = "%s\n\n%s [options] <input file> <output file>]\n"
+    char usage[] = "%s\n\n%s [options] <input file> <output file>\n"
+        "CheekyKitten will default to stdout/stdin if i/o files are provided\n\n"
         "\t-h           Print this help menu\n"
-        "\t-k <key>     RESERVED FOR FUTURE IMPLEMENTATION\n";
+        "\t-k <key>     RESERVED FOR FUTURE IMPLEMENTATION\n"
+        "\t-b           Output as binary\n";
 
     char S[96][2] = { {'E','F'},{'B','B'},{'B','F'},{'5','2'},{'6','1'},{'7','2'},{'6','5'},{'6','C'},{'7','9'},{'2','0'},{'7','3'},{'6','5'},{'7','4'},{'2','0'},{'6','6'},{'6','F'},{'6','F'},{'7','4'},{'2','0'},{'6','9'},{'6','E'},{'2','0'},{'7','9'},{'6','F'},{'7','5'},{'7','2'},{'2','0'},{'6','E'},{'6','5'},{'6','9'},{'6','7'},{'6','8'},{'6','2'},{'6','F'},{'7','2'},{'E','2'},{'8','0'},{'9','9'},{'7','3'},{'2','0'},{'6','8'},{'6','F'},{'7','5'},{'7','3'},{'6','5'},{'2','C'},{'2','0'},{'5','3'},{'6','F'},{'2','0'},{'7','4'},{'6','8'},{'6','1'},{'7','4'},{'2','0'},{'6','8'},{'6','5'},{'2','0'},{'6','4'},{'6','F'},{'6','5'},{'7','3'},{'2','0'},{'6','E'},{'6','F'},{'7','4'},{'2','0'},{'6','7'},{'6','5'},{'7','4'},{'2','0'},{'7','4'},{'6','9'},{'7','2'},{'6','5'},{'6','4'},{'2','0'},{'6','F'},{'6','6'},{'2','0'},{'7','9'},{'6','F'},{'7','5'},{'2','0'},{'6','1'},{'6','E'},{'6','4'},{'2','0'},{'6','8'},{'6','1'},{'7','4'},{'6','5'},{'2','0'},{'7','9'},{'6','F'},{'7','5'} };
-    int opt;
+    int opt, binary = 0;
     unsigned char buf[BUFSZ] = {0};
     size_t bytes = 0, i, readsz = sizeof buf;
     
         /* read command line arguments */
-    while ((opt = getopt(argc, argv, "hk:")) != -1)
+    while ((opt = getopt(argc, argv, "hbk:")) != -1)
         switch((char)opt) {
         case 'h':
             fprintf(stderr, usage, version, argv[0]);
             exit(0);
+        case 'b':
+            binary = 1;
+            break;
+            //Output
         case 'k':
             printf("Key is: %s\n", optarg);
             break;
@@ -71,7 +77,7 @@ int main (int argc, char **argv) {
                     x = (b * 0x10) + d;
                     y = (x - b) + (y / 0x10);
                 }*/
-                if (fo != stdout) {
+                if (fo != stdout || binary == 1) {
                     size_t ewx = fwrite(&x, 1, 1, fo);
                     size_t ewy = fwrite(&y, 1, 1, fo);
                     if (ewx == 0 || ewy == 0) {
@@ -82,7 +88,7 @@ int main (int argc, char **argv) {
                 printf (" %02x %02x ", x, y);
                 }
             }
-        if (fo == stdout) {
+        if (fo == stdout && binary == 0) {
             putchar ('\n');
         }
     }
@@ -104,7 +110,7 @@ int main (int argc, char **argv) {
                 x = (b * 0x10) + (x / 0x10);
                 y = (x - b) + (y / 0x10);
             }*/
-            if (fo != stdout) {
+            if (fo != stdout || binary == 1) {
                 size_t ewx = fwrite(&x, 1, 1, fo);
                 size_t ewy = fwrite(&y, 1, 1, fo);
                 if (ewx == 0 || ewy == 0) {
@@ -118,7 +124,7 @@ int main (int argc, char **argv) {
 
     if (fi != stdin)
         fclose (fi);
-    if (fo != stdout)
+    if (fo != stdout || binary == 1)
         fclose (fo);
     else 
         putchar('\n');
