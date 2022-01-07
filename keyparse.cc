@@ -16,7 +16,12 @@ int txt2bin(char* key) {
     return key;
 }
 
-
+/*
+ * Temporary main function with args parsing while testing the new feature
+ * This script will contain the functions to cast the key string character array to binary
+ * and assign each binary bit to a possition within an array...
+ * this will define how the algo switches between ixi and xx output.
+ */
 int main (int argc, char **argv) {
 	int bin = 11010;
 	int opt;
