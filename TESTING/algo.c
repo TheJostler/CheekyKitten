@@ -1,4 +1,4 @@
-#include "qc.h"
+#include "algo.h"
 
 /*
  * This is an optimisation test running the qc algorithm using bit manipulation rather than Arithmatic 
