@@ -50,13 +50,13 @@ before compiling with make
     CheekyKitten will default to stdout/stdin if i/o files are not provided
               -h           Print this help menu
 
-              -k <key>     1(ixi) or 0(xx) - default ixi
+              -k <key>     1 (IXI) or 0 (XX) - default ixi
  
               -b           Output as binary 
  
 Some examples:
 
-`cheeky file file.cheek`       -will input binary from file and output ixi cheeky code-
+`cheeky file file.cheek`       -will input binary from file and write cheeky code to .cheek file-
 
 `cheeky file`                  -will input binary from file and output human readable cheeky code(hex) from IXI function-
 
