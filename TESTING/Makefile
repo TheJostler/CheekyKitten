@@ -1,4 +1,4 @@
-name=cheeky
+name=cheekytesting
 dest=/usr/bin
 cc=gcc
 deps = $(wildcard *.h)
