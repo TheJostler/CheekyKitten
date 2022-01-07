@@ -21,9 +21,9 @@ b = x mod 0x10
 
 d = y mod 0x10
 
-x = y -d + x / 0x10;
+x = (y -d) + (x / 0x10);
 
-y = d * 0x10 + b;
+y = (d * 0x10) + b;
 
 Move onto next group...
 
