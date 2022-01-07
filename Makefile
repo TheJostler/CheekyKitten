@@ -16,3 +16,6 @@ $(name): $(objs)
 
 install:
 	mv $(name) $(dest)/$(name)
+
+clean:
+	rm -r $(o)
