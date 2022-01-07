@@ -27,3 +27,41 @@ y = d * 0x10 + b;
 
 Move onto next group...
 
+# ISTALL
+
+Download and compile from source: 
+
+`git clone https://github.com/TheJostler/CheekyKitten.git`
+
+If you want to install the UNSTABLE logical algo test version:
+
+`cd TESTING`
+
+`make`
+
+`sudo make install`
+
+
+before compiling with make
+
+# USAGE
+ 
+    cheeky / cheekytesting [options] -input file- -output file-
+    CheekyKitten will default to stdout/stdin if i/o files are not provided
+              -h           Print this help menu
+
+              -k <key>     1(ixi) or 0(xx) - default ixi
+ 
+              -b           Output as binary 
+ 
+Some examples:
+
+`cheeky file file.cheek`       -will input binary from file and output ixi cheeky code-
+
+`cheeky file`                  -will input binary from file and output human readable cheeky code(hex) from IXI function-
+
+`cheeky -k 0 file`             -will input binary from file and output human readable cheeky code(hex) from  XX function-
+
+`cheeky file -b > file.cheek`  -will input binary from file and output binary cheeky code, bash then redirects to file.cheek-
+
+`echo "hi" | cheeky`           -will input binary from stdin and output human readable cheeky code(hex)-
