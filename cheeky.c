@@ -44,7 +44,7 @@ int main (int argc, char **argv) {
             printf("Unexpected argument\n");
             usage(argv[0]);
             exit(1);
-        }
+    }
     argc -= optind;
     argv += optind;
 

@@ -27,7 +27,7 @@ y = (d * 0x10) + b;
 
 Move onto next group...
 
-# ISTALL
+# INSTALL
 
 Download and compile from source: 
 

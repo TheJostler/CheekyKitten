@@ -15,7 +15,7 @@ $(name): $(objs)
 	$(cc) -o $@ $^ 
 
 install:
-	mv $(name) $(dest)/$(name)
+	cp $(name) $(dest)/$(name)
 
 clean:
-	rm -r $(o)
+	rm -r $(o) $(name)
