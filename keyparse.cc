@@ -4,7 +4,7 @@
 
 
 int txt2bin(char* key) {
-    // A 255 character buffer
+    // A 4096 character buffer
     int limit = sizeof(key), i, bin;
     char buff[4096];
     while (*key)

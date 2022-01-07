@@ -12,7 +12,7 @@ void usage (char* basename) {
     char usage[] = "%s%s\n\n%s [options] <input file> <output file>\n"
         "CheekyKitten will default to stdout/stdin if i/o files are not provided\n\n"
         "\t-h           Print this help menu\n"
-        "\t-k <key>     1(ixi) or 0(xx) - default ixi\n"
+        "\t-k <key>     NOT FINISHED 1=(ixi) or 0=(xx) - default ixi\n"
         "\t-b           Output as binary\n";
         fprintf(stderr, usage, version, algo, basename);
 }
