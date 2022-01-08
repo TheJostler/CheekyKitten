@@ -1,20 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include "KP.hh"
 
+int *txt2bin(char *txt) {
+    static int bin[10];
+    int i;
 
-int txt2bin(char* key) {
-    // A 4096 character buffer
-    int limit = sizeof(key), i, bin;
-    char buff[4096];
-    while (*key)
-    {
-        i += 1;
-        bin[i] = itoa(*key, buff, 2);
-        ++key;
+    for(; *txt != 0; ++txt) {
+        for( i = 7; i >= 0; --i)
+            (*txt & 1 << i) ? bin[i] = 1 : bin[i] = 0;
     }
-    return key;
+        return bin;
 }
+
 
 /*
  * Temporary main function with args parsing while testing the new feature
@@ -22,23 +21,29 @@ int txt2bin(char* key) {
  * and assign each binary bit to a possition within an array...
  * this will define how the algo switches between ixi and xx output.
  */
-int main (int argc, char **argv) {
-	int bin = 11010;
-	int opt;
-	char key[];
+
+int main (int argc, char *argv[]) {
+	int opt, i, s, *key;
+    char *txtkey;
 	   /* read command line arguments */
     while ((opt = getopt(argc, argv, "k:")) != -1)
 	    switch((char)opt) {
 	    	case 'k':
-		    	key = optarg;
+		    	txtkey = optarg;
 		    	break;
-	    	default:
-	    		fprintf(stderror, "Unknown command: $s\n", optarg);
-	    		exit(1);
     }
+
     argc -= optind;
     argv += optind;
 
-    printf("key is: %s\n", key);
+    printf("key is: %i\n", txtkey);
 
+    int size = 255;
+    key=txt2bin(txtkey);
+    for (i=0; i < size; i++) {
+        s = i % 8;
+        printf( "*(key + %d) : %d\n", s, *(key + s));
+    }
+
+   return 0;
 }

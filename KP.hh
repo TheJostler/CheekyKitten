@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char keyparse(char* k);
+int *txt2bin(char* txt);
 int main(int argc, char **argv);
 
 #endif

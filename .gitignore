@@ -1,5 +1,7 @@
 obj
 cheeky
+*.test
 
+TESTING/*.test
 TESTING/obj
 TESTING/cheekytesting
