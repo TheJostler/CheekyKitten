@@ -50,7 +50,9 @@ before compiling with make
     CheekyKitten will default to stdout/stdin if i/o files are not provided
               -h           Print this help menu
 
-              -k <key>     1 (IXI) or 0 (XX) - default ixi
+              -k <key>     Encrypt with a key
+
+              -r           Reverse
  
               -b           Output as binary 
  
@@ -60,7 +62,7 @@ Some examples:
 
 `cheeky file`                  -will input binary from file and output human readable cheeky code(hex) from IXI function-
 
-`cheeky -k 0 file`             -will input binary from file and output human readable cheeky code(hex) from  XX function-
+`cheeky -k secret file`             -will input binary from file and output human readable cheeky code(hex) from  XX function-
 
 `cheeky file -b > file.cheek`  -will input binary from file and output binary cheeky code, bash then redirects to file.cheek-
 
