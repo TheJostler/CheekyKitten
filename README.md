@@ -37,12 +37,12 @@ If you want to install the UNSTABLE logical algo test version:
 
 `cd TESTING`
 
+Before compiling with make
+
 `make`
 
 `sudo make install`
 
-
-before compiling with make
 
 # USAGE
  
