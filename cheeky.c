@@ -80,18 +80,20 @@ int main (int argc, char **argv) {
                         int x = buf[i];
                         int y = buf[i+1];
                             //insert algorithm here!
+                        int b = x% 0x10;
+                        int d = y% 0x10;
                         key = txt2bin(txtkey);
                         n ++;
                         n = n % keylen;
                         if (*(key + n) ^ flip) {
-                            x = x_ixi(x, y);
-                            y = y_ixi(x, y);
+                            x = x_ixi(x, y, d);
+                            y = y_ixi(b, d);
                         }
                         else {
                             int tx = x; //weird bug fix
                             int ty = y; //weird bug fix
-                            x = x_xx(x, y);
-                            y = y_xx(tx, ty);
+                            x = x_xx(b, d);
+                            y = y_xx(tx, ty, b);
                         }
                         if (fo != stdout || binary == 1) {
                             size_t ewx = fwrite(&x, 1, 1, fo);
@@ -120,14 +122,14 @@ int main (int argc, char **argv) {
                     n ++;
                     n = n % keylen;
                     if (*(key + n) ^ flip){
-                        x = x_ixi(x, y);
-                        y = y_ixi(x, y);
+                        x = x_ixi(x, y, d);
+                        y = y_ixi(b, d);
                     }
                     else {
                         int tx = x; //weird bug fix
                         int ty = y; //weird bug fix
-                        x = x_xx(x, y);
-                        y = y_xx(tx, ty);
+                        x = x_xx(b, d);
+                        y = y_xx(tx, ty, b);
                     }
                     if (fo != stdout || binary == 1) {
                         size_t ewx = fwrite(&x, 1, 1, fo);
@@ -151,15 +153,17 @@ int main (int argc, char **argv) {
                         int x = buf[i];
                         int y = buf[i+1];
                             //insert algorithm here!
+                        int b = x% 0x10;
+                        int d = y% 0x10;
                         if (key ^ flip) {
-                            x = x_ixi(x, y);
-                            y = y_ixi(x, y);
+                            x = x_ixi(x, y, d);
+                            y = y_ixi(b, d);
                         }
                         else {
                             int tx = x; //weird bug fix
                             int ty = y; //weird bug fix
-                            x = x_xx(x, y);
-                            y = y_xx(tx, ty);
+                            x = x_xx(b, d);
+                            y = y_xx(tx, ty, b);
                         }
                         if (fo != stdout || binary == 1) {
                             size_t ewx = fwrite(&x, 1, 1, fo);
@@ -187,14 +191,14 @@ int main (int argc, char **argv) {
                     int b = x% 0x10;
                     int d = y% 0x10;
                     if (key ^ flip) {
-                        x = x_ixi(x, y);
-                        y = y_ixi(x, y);
+                        x = x_ixi(x, y, d);
+                        y = y_ixi(b, d);
                     }
                     else {
                         int tx = x; //weird bug fix
                         int ty = y; //weird bug fix
-                        x = x_xx(x, y);
-                        y = y_xx(tx, ty);
+                        x = x_xx(b, d);
+                        y = y_xx(tx, ty, b);
                     }
                     if (fo != stdout || binary == 1) {
                         size_t ewx = fwrite(&x, 1, 1, fo);
