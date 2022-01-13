@@ -33,9 +33,9 @@ Download and compile from source:
 
 `git clone https://github.com/TheJostler/CheekyKitten.git`
 
-If you want to install the UNSTABLE logical algo test version:
+If you want to install the logical algo version:
 
-`cd TESTING`
+`cd LogicalAlgo`
 
 Before compiling with make
 
