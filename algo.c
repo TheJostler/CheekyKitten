@@ -6,20 +6,22 @@
 
 //IXI
 int x_ixi(int x, int y, int d) {
-    x = (y - d) + (x / 0x10);
-	return x;
+    return (y - d) + (x / 0x10);
 	}
 int y_ixi(int b, int d) {
-    int y = (d * 0x10) + b;
-	return y;
+    return (d * 0x10) + b;
 }
 
 //XX
 int x_xx(int b, int d) {
-	int x = b * 0x10 + d;
-	return x;
+	return b * 0x10 + d;
 	}
 int y_xx(int x, int y, int b) {
-	y = (x - b) + (y / 0x10);
-	return y;
+	return (x - b) + (y / 0x10);
+}
+
+int main(){
+	int x = x_ixi(64);
+	int y = y_ixi(65);
+	printf("x: %x, y: %x", x, y);
 }
