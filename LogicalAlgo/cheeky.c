@@ -9,7 +9,7 @@
 
 void usage (char* basename) {
     char version[] = "CheekyKitten 0.3 Beta by Josjuar Lister 2021-2022";
-    char algo[] = " -- Arithmatic Algorithm\n";
+    char algo[] = " -- Logical Algorithm\n";
     char usage[] = "%s%s\n\n%s [options] <input file> <output file>\n"
         "CheekyKitten will default to stdout/stdin if i/o files are not provided\n\n"
         "\t-h           Print this help menu\n"

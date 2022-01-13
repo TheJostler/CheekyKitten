@@ -19,9 +19,3 @@ int x_xx(int b, int d) {
 int y_xx(int x, int y, int b) {
 	return (x - b) + (y / 0x10);
 }
-
-int main(){
-	int x = x_ixi(64);
-	int y = y_ixi(65);
-	printf("x: %x, y: %x", x, y);
-}
