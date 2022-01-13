@@ -5,7 +5,7 @@ This is the software which implements my quadcode algorithm. My original concept
 
 |XX|YY| |XX|YY| |XX|YY| |XX|YY|
 
-I have created a working version of my algorithm using mathmatical arithmatic.. I am working speed testing a "logical bit manipulation" version of the algorithm which I will include in the "LogicalAlgo" directory.
+I have created a working version of my algorithm using mathmatical arithmatic.. I am speed testing a "logical bit manipulation" version of the algorithm which I will include in the "LogicalAlgo" directory.
 
 Below is an explanation of my Arithmatic algorithm... 
 
