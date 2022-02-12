@@ -1,0 +1,18 @@
+[Desktop Entry]
+Version=0.2
+Type=Application
+Name=CheekyKitten
+Comment=The Cheeky kitten binary obsfucation utility
+TryExec=cheeky
+Exec=cheeky -h
+Icon=cheekykitten.png
+MimeType=application/cheeky;
+Actions=binary;key;
+
+[Desktop Action Binary]
+Exec=cheeky -b
+Name=Output binary
+
+[Desktop Action Key]
+Exec=cheeky -k
+Name=Key

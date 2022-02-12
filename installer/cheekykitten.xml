@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+           <mime-info xmlns='http://www.freedesktop.org/standards/shared-mime-info'>
+             <mime-type type="application/cheekykitten">
+               <comment>Cheeky Kitten file</comment>
+               <glob pattern="*.cheek"/>
+             </mime-type>
+           </mime-info>
