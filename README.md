@@ -67,3 +67,11 @@ Some examples:
 `cheeky file -b > file.cheek`  -will input binary from file and output binary cheeky code, bash then redirects to file.cheek-
 
 `echo "hi" | cheeky`           -will input binary from stdin and output human readable cheeky code(hex)-
+
+# .cheek File mime-types
+
+If you would like to add .cheek mime types to your system so that your computer can recognise files encoded with cheekykitten, the files in the MIME directory can help you add .cheek mime-types to your system, I haven't created an automatic installer for doing this however it's not difficult. Search on Google how to add mime types to your particular system if you want...
+
+This step is not necessary for the normal functioning of cheekykitten!
+
+Have Fun! =D
