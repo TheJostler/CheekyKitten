@@ -1,5 +1,5 @@
 # CheekyKitten
-A cheeky Kitten cipher is a simple binary obsfucation cipher. Designed to be quick to run and effective at hiding data.
+The Cheeky Kitten encoder is a simple binary obsfucation tool. Designed to be quick to run and effective at hiding data. It uses a simple "hex shuffle" algorithm to corrupt encode the binary data in such a way that it can be easily decoded, but that statistically looks completely different to the original.
 
 This is the software which implements my quadcode algorithm. My original concept was to have a message interpreted from UTF-8 to hex and then written from top down, instead of left to write... then the 16's place of the first byte would be concatonated with the 16's place of the next byte and same with the 1's on the line bellow. This is a new concept that should be easier to translate onto a computer program and will be more lightweight and faster. Instead the 64-bit(8 bytes) line in hex would be grouped into 4 sections line by line as so:
 
@@ -13,9 +13,9 @@ Below is an explanation of my Arithmatic algorithm...
 
 *All mathmatical operations are performed in base 16... so modulo 0x10 would be modulo 16 in regular decimal.
 
- X | Y --> Input Bytes
+ X | Y --> Input Bytes(in hexadecimal)
 
-ab | cd --> To help you visualise what the variables represent
+ab | cd --> To help you visualise what the variables represent(since X and Y will always be two digits long - even if only 01)
 
 b = x mod 0x10
 
