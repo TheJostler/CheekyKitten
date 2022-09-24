@@ -5,10 +5,6 @@ This is the software which implements my quadcode algorithm. My original concept
 
 |XX|YY| |XX|YY| |XX|YY| |XX|YY|
 
-I have created a working version of my algorithm using mathmatical arithmatic.. I am speed testing a "logical bit manipulation" version of the algorithm which I will include in the "LogicalAlgo" directory.
-
-Below is an explanation of my Arithmatic algorithm... 
-
 (For every group or every two bytes of input: x,y)
 
 *All mathmatical operations are performed in base 16... so modulo 0x10 would be modulo 16 in regular decimal.
@@ -33,12 +29,6 @@ Download and compile from source:
 
 `git clone https://github.com/TheJostler/CheekyKitten.git`
 
-If you want to install the logical algo version:
-
-`cd LogicalAlgo`
-
-Before compiling with make
-
 `make`
 
 `sudo make install`
@@ -50,8 +40,6 @@ Before compiling with make
     CheekyKitten will default to stdout/stdin if i/o files are not provided
               -h           Print this help menu
 
-              -k <key>     Encrypt with a key
-
               -r           Reverse
  
               -b           Output as binary 
@@ -61,8 +49,6 @@ Some examples:
 `cheeky file file.cheek`       -will input binary from file and write cheeky code to .cheek file-
 
 `cheeky file`                  -will input binary from file and output human readable cheeky code(hex) from IXI function-
-
-`cheeky -k secret file`             -will input binary from file and output human readable cheeky code(hex) from  XX function-
 
 `cheeky file -b > file.cheek`  -will input binary from file and output binary cheeky code, bash then redirects to file.cheek-
 
