@@ -3,26 +3,165 @@
 #include <unistd.h>
 #include <string.h>
 #include "algo.h"
+#include "sha-256.h"
 
 #define BUFSZ 8
 
+static void hash_to_string(char string[65], const uint8_t hash[32])
+{
+	size_t i;
+	for (i = 0; i < 32; i++) {
+		string += sprintf(string, "%02x", hash[i]);
+	}
+}
+
+int xor(data, key){
+    // XOR the data to encrypt.
+    int text = data ^ key;
+    return text;
+}
+
+int hexShift(int i, unsigned char buf[BUFSZ], int flip, int binary, FILE *fo){
+    if (i%2 == 0) {
+        int x = buf[i];
+        int y = buf[i+1];
+            //and here!
+        if (!flip) {
+            int tx = x; //weird bug fix
+            int ty = y; //weird bug fix
+            x = x_ixi(tx, ty);
+            y = y_ixi(tx, ty);
+        }
+        else {
+            int tx = x; //weird bug fix
+            int ty = y; //weird bug fix
+            x = x_xx(tx, ty);
+            y = y_xx(tx, ty);
+        }
+        if (fo != stdout || binary == 1) {
+            size_t ewx = fwrite(&x, 1, 1, fo);
+            size_t ewy = fwrite(&y, 1, 1, fo);
+            if (ewx == 0 || ewy == 0) {
+                return 2;
+            }
+        }
+        else {
+            printf(" %02x %02x ", x, y);
+        }
+    }
+    return 0;
+}
+
+int hexShiftXor(int i, unsigned char buf[BUFSZ], int flip, int binary, FILE *fo, char *hash){
+    if (i%2 == 0) {
+        int x = buf[i];
+        int y = buf[i+1];
+            //and here!
+        if (!flip) {
+
+            int tx = x; //weird bug fix
+            int ty = y; //weird bug fix
+            x = xor(x_ixi(tx, ty), hash[i]);
+            y = xor(y_ixi(tx, ty), hash[i+1]);
+        }
+        else {
+            int tx = x; //weird bug fix
+            int ty = y; //weird bug fix
+            x = xor(tx, hash[i]);
+            y = xor(ty, hash[i+1]);
+        }
+        if (fo != stdout || binary == 1) {
+            size_t ewx = fwrite(&x, 1, 1, fo);
+            size_t ewy = fwrite(&y, 1, 1, fo);
+            if (ewx == 0 || ewy == 0) {
+                return 2;
+            }
+        }
+        else {
+            printf(" %02x %02x ", x, y);
+        }
+    }
+    return 0;
+}
+
+int shuffleInput(FILE *fi, FILE *fo, int flip, int binary){ 
+    unsigned char buf[BUFSZ] = {0};
+    size_t bytes = 0, i, readsz = sizeof buf;
+
+    /* read/output BUFSZ bytes at a time */
+    while ((bytes = fread (buf, sizeof *buf, readsz, fi)) == readsz) {
+        for (i = 0; i < readsz; i++)
+            hexShift(i, buf, flip, binary, fo);
+
+        if (fo == stdout && binary == 0) {
+            putchar ('\n');
+        }
+    }
+
+    for (i = 0; i < bytes; i++) /* output final partial buf */
+        hexShift(i, buf, flip, binary, fo);
+
+    if (fi != stdin)
+        fclose (fi);
+    if (fo != stdout || binary == 1)
+        fclose (fo);
+    else 
+        putchar('\n');
+    return 0;
+}
+
+int shuffleXorInput(FILE *fi, FILE *fo, int flip, int binary, char *key){
+    unsigned char buf[BUFSZ] = {0};
+    size_t bytes = 0, i, readsz = sizeof buf;
+
+    __uint8_t hash[32];
+    char hash_str[65];
+    calc_sha_256(hash, key, strlen(key));
+    hash_to_string(hash_str, hash);
+
+    /* read/output BUFSZ bytes at a time */
+    while ((bytes = fread (buf, sizeof *buf, readsz, fi)) == readsz) {
+        for (i = 0; i < readsz; i++) {
+            if(i >= 64) {
+                calc_sha_256(hash, hash, 64);
+                hash_to_string(hash_str, hash);
+            }
+            hexShiftXor(i, buf, flip, binary, fo, hash_str);
+        }
+
+        if (fo == stdout && binary == 0) {
+            putchar ('\n');
+        }
+    }
+
+    for (i = 0; i < bytes; i++) /* output final partial buf */
+        hexShiftXor(i, buf, flip, binary, fo, hash_str);
+
+    if (fi != stdin)
+        fclose (fi);
+    if (fo != stdout || binary == 1)
+        fclose (fo);
+    else 
+        putchar('\n');
+    return 0;
+}
+
 void usage (char* basename) {
-    char version[] = "CheekyKitten 0.3 Beta by Josjuar Lister 2021-2022";
+    char version[] = "CheekyKitten 0.4 Beta by Josjuar Lister 2021-2023";
     char algo[] = " -- Logical Algorithm\n";
     char usage[] = "%s%s\n\n%s [options] <input file> <output file>\n"
         "CheekyKitten will default to stdout/stdin if i/o files are not provided\n\n"
         "\t-h           Print this help menu\n"
-        "\t-R           Reverse\n"
+        "\t-k [Key]     Encrypt shuffled output with a key\n"
+        "\t-R           Reverse (or Decrypt if used with Key argument)\n"
         "\t-b           Output as binary\n";
         fprintf(stderr, usage, version, algo, basename);
 }
 
 int main (int argc, char **argv) {
 
-    int opt, flip, binary = 0;
-    
-    unsigned char buf[BUFSZ] = {0};
-    size_t bytes = 0, i, readsz = sizeof buf;
+    int opt, flip = 0, binary = 0, cipher = 0;
+    char *key = "";
     
         /* read command line arguments */
     while ((opt = getopt(argc, argv, "hbk:r")) != -1)
@@ -33,7 +172,10 @@ int main (int argc, char **argv) {
         case 'b':
             binary = 1;
             break;
-            //Output
+        case 'k':
+            key = optarg;
+            cipher = 1;
+            break;
         case 'r':
             flip = 1;
             break;
@@ -63,75 +205,12 @@ int main (int argc, char **argv) {
         exit(1);
     }
 
-        /* read/output BUFSZ bytes at a time */
-        while ((bytes = fread (buf, sizeof *buf, readsz, fi)) == readsz) {
-            for (i = 0; i < readsz; i++)
-                if (i%2 == 0) {
-                    int x = buf[i];
-                    int y = buf[i+1];
-                        //insert algorithm here!
-                    if (!flip) {
-                        int tx = x; //weird bug fix
-                        int ty = y; //weird bug fix
-                        x = x_ixi(tx, ty);
-                        y = y_ixi(tx, ty);
-                    }
-                    else {
-                        int tx = x; //weird bug fix
-                        int ty = y; //weird bug fix
-                        x = x_xx(tx, ty);
-                        y = y_xx(tx, ty);
-                    }
-                    if (fo != stdout || binary == 1) {
-                        size_t ewx = fwrite(&x, 1, 1, fo);
-                        size_t ewy = fwrite(&y, 1, 1, fo);
-                        if (ewx == 0 || ewy == 0) {
-                            return 2;
-                        }
-                    }
-                    else {
-                    printf (" %02x %02x ", x, y);
-                    }
-                }
-            if (fo == stdout && binary == 0) {
-                putchar ('\n');
-            }
-        }
+    if(cipher) {
+        shuffleXorInput(fi, fo, flip, binary, key);
+    }
+    else {
+        shuffleInput(fi, fo, flip, binary);
+    }
 
-        for (i = 0; i < bytes; i++) /* output final partial buf */
-            if (i%2 == 0) {
-                int x = buf[i];
-                int y = buf[i+1];
-                    //and here!
-                if (!flip) {
-                    int tx = x; //weird bug fix
-                    int ty = y; //weird bug fix
-                    x = x_ixi(tx, ty);
-                    y = y_ixi(tx, ty);
-                }
-                else {
-                    int tx = x; //weird bug fix
-                    int ty = y; //weird bug fix
-                    x = x_xx(tx, ty);
-                    y = y_xx(tx, ty);
-                }
-                if (fo != stdout || binary == 1) {
-                    size_t ewx = fwrite(&x, 1, 1, fo);
-                    size_t ewy = fwrite(&y, 1, 1, fo);
-                    if (ewx == 0 || ewy == 0) {
-                        return 2;
-                    }
-                }
-                else {
-                printf(" %02x %02x ", x, y);
-                }
-            }
-
-    if (fi != stdin)
-        fclose (fi);
-    if (fo != stdout || binary == 1)
-        fclose (fo);
-    else 
-        putchar('\n');
-    return 0;
+    
 }
