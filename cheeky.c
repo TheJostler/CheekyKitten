@@ -136,6 +136,7 @@ int shuffleXorInput(FILE *fi, FILE *fo, int flip, int binary, char *key){
     }
 
     for (i = 0; i < bytes; i++) /* output final partial buf */
+        printf("\n - %i - \n", i);
         hexShiftXor(i, buf, flip, binary, fo, hash_str);
 
     if (fi != stdin)
