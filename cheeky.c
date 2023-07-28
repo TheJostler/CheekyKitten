@@ -57,7 +57,6 @@ int hexShiftXor(int i, unsigned char buf[BUFSZ], int flip, int binary, FILE *fo,
         if (k >= 64 ) {
 	     k = 0;
 	}
-        k++;
         int x = buf[i];
         int y = buf[i+1];
             //and here!
@@ -86,6 +85,7 @@ int hexShiftXor(int i, unsigned char buf[BUFSZ], int flip, int binary, FILE *fo,
             printf(" %02x %02x - %i |", x, y, k);
         }
     }
+    k++;
     return 0;
 }
 
