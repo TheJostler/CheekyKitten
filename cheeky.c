@@ -123,6 +123,7 @@ int shuffleXorInput(FILE *fi, FILE *fo, int flip, int binary, char *key){
     char hash_str[65];
     calc_sha_256(hash, key, strlen(key));
     hash_to_string(hash_str, hash);
+	printf("\n%s\n", hash_str);
 
     /* read/output BUFSZ bytes at a time */
     while ((bytes = fread (buf, sizeof *buf, readsz, fi)) == readsz) {
@@ -130,6 +131,7 @@ int shuffleXorInput(FILE *fi, FILE *fo, int flip, int binary, char *key){
             if(i >= 64) {
                 calc_sha_256(hash, hash, 64);
                 hash_to_string(hash_str, hash);
+		    printf("\n%s\n", hash_str);
             }
             hexShiftXor(i, buf, flip, binary, fo, hash_str);
         }
