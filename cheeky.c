@@ -64,13 +64,13 @@ int hexShiftXor(int i, unsigned char buf[BUFSZ], int flip, int binary, FILE *fo,
 
             int tx = x; //weird bug fix
             int ty = y; //weird bug fix
-            x = xor(x_ixi(tx, ty), hash[i]);
-            y = xor(y_ixi(tx, ty), hash[i+1]);
+            x = xor(x_ixi(tx, ty), hash[k]);
+            y = xor(y_ixi(tx, ty), hash[k+1]);
 		
         }
         else {
-            int ex = xor(x, hash[i]);
-            int ey = xor(y, hash[i+1]);
+            int ex = xor(x, hash[k]);
+            int ey = xor(y, hash[k+1]);
 	    x = x_xx(ex, ey);
             y = y_xx(ex, ey);
         }
