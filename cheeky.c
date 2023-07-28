@@ -84,8 +84,8 @@ int hexShiftXor(int i, unsigned char buf[BUFSZ], int flip, int binary, FILE *fo,
         else {
             printf(" %02x %02x - %i |", x, y, k);
         }
+        k++;
     }
-    k++;
     return 0;
 }
 
