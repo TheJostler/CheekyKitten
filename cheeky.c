@@ -62,12 +62,13 @@ int hexShiftXor(int i, unsigned char buf[BUFSZ], int flip, int binary, FILE *fo,
             int ty = y; //weird bug fix
             x = xor(x_ixi(tx, ty), hash[i]);
             y = xor(y_ixi(tx, ty), hash[i+1]);
+		
         }
         else {
-            int tx = x; //weird bug fix
-            int ty = y; //weird bug fix
-            x = xor(tx, hash[i]);
-            y = xor(ty, hash[i+1]);
+            ex = xor(x, hash[i]);
+            ey = xor(y, hash[i+1]);
+	    x = x_xx(ex, ey);
+            y = y_xx(ex, ey);
         }
         if (fo != stdout || binary == 1) {
             size_t ewx = fwrite(&x, 1, 1, fo);
