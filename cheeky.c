@@ -15,10 +15,9 @@ static void hash_to_string(char string[65], const uint8_t hash[32])
 	}
 }
 
-int xor(data, key){
+int xor(int data, int key){
     // XOR the data to encrypt.
-    int text = data ^ key;
-    return text;
+    return data ^ key;
 }
 
 int hexShift(int i, unsigned char buf[BUFSZ], int flip, int binary, FILE *fo){
