@@ -54,7 +54,7 @@ int hexShift(int i, unsigned char buf[BUFSZ], int flip, int binary, FILE *fo){
 int hexShiftXor(int i, unsigned char buf[BUFSZ], int flip, int binary, FILE *fo, char *hash){
     if (i%2 == 0) {
         static int k;
-        if (k >= 64 ) {
+        if (k >= 65 ) {
 	     k = 0;
 	}
         int x = buf[i];
