@@ -126,7 +126,7 @@ int shuffleXorInput(FILE *fi, FILE *fo, int flip, int binary, char *key){
                 calc_sha_256(hash, hash, 64);
                 hash_to_string(hash_str, hash);
             }
-	    printf("\n - %i - \n", i);
+	    printf("\n - %zu - \n", i);
             hexShiftXor(i, buf, flip, binary, fo, hash_str);
         }
 
