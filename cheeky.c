@@ -52,11 +52,8 @@ int hexShift(int i, unsigned char buf[BUFSZ], int flip, int binary, FILE *fo){
 }
 
 int hexShiftXor(int i, unsigned char buf[BUFSZ], int flip, int binary, FILE *fo, char *hash){
-    static int k;
-    if (k >= 64 ) {
-	k = 0;
-    }
     if (i%2 == 0) {
+	static int k;
         int x = buf[i];
         int y = buf[i+1];
             //and here!
@@ -85,6 +82,9 @@ int hexShiftXor(int i, unsigned char buf[BUFSZ], int flip, int binary, FILE *fo,
             printf(" %02x %02x - %i %c %c |", x, y, k, hash[k], hash[k+1]);
         }
         k = k + 2;
+    }
+    if (k >= 64 ) {
+	return 1;
     }
     return 0;
 }
@@ -128,12 +128,11 @@ int shuffleXorInput(FILE *fi, FILE *fo, int flip, int binary, char *key){
     /* read/output BUFSZ bytes at a time */
     while ((bytes = fread (buf, sizeof *buf, readsz, fi)) == readsz) {
         for (i = 0; i < readsz; i++) {
-            if(i >= 64) {
-                calc_sha_256(hash, hash, 64);
+            if(hexShiftXor(i, buf, flip, binary, fo, hash_str)) {
+		calc_sha_256(hash, hash, 64);
                 hash_to_string(hash_str, hash);
-		    printf("\n%s\n", hash_str);
-            }
-            hexShiftXor(i, buf, flip, binary, fo, hash_str);
+		printf("\n%s\n", hash_str);
+	    }
         }
 
         if (fo == stdout && binary == 0) {
