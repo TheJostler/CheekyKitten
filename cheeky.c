@@ -65,8 +65,8 @@ int hexShiftXor(int i, unsigned char buf[BUFSZ], int flip, int binary, FILE *fo,
 		
         }
         else {
-            ex = xor(x, hash[i]);
-            ey = xor(y, hash[i+1]);
+            int ex = xor(x, hash[i]);
+            int ey = xor(y, hash[i+1]);
 	    x = x_xx(ex, ey);
             y = y_xx(ex, ey);
         }
