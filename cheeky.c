@@ -84,6 +84,7 @@ int hexShiftXor(int i, unsigned char buf[BUFSZ], int flip, int binary, FILE *fo,
         k = k + 2;
     }
     if (k >= 64 ) {
+	k = 0;
 	return 1;
     }
     return 0;
