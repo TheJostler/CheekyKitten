@@ -152,7 +152,7 @@ int shuffleXorInput(FILE *fi, FILE *fo, int flip, int binary, char *key){
 }
 
 void usage (char* basename) {
-    char version[] = "CheekyKitten 0.4 Beta by Josjuar Lister 2021-2023";
+    char version[] = "CheekyKitten 0.5 Beta by Josjuar Lister 2021-2023";
     char algo[] = " -- Logical Algorithm\n";
     char usage[] = "%s%s\n\n%s [options] <input file> <output file>\n"
         "CheekyKitten will default to stdout/stdin if i/o files are not provided\n\n"
