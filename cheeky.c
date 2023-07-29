@@ -128,8 +128,8 @@ int shuffleXorInput(FILE *fi, FILE *fo, int flip, int binary, char *key){
     /* read/output BUFSZ bytes at a time */
     while ((bytes = fread (buf, sizeof *buf, readsz, fi)) == readsz) {
         for (i = 0; i < readsz; i++) {
-            if(hexShiftXor(i, buf, flip, binary, fo, hash) == 1) {
-		calc_sha_256(hash, hash, 64);
+            if(hexShiftXor(i, buf, flip, binary, fo, hash_str) == 1) {
+		        calc_sha_256(hash, hash, 64);
                 hash_to_string(hash_str, hash);
 	    }
         }
@@ -140,7 +140,7 @@ int shuffleXorInput(FILE *fi, FILE *fo, int flip, int binary, char *key){
     }
 
     for (i = 0; i < bytes; i++) /* output final partial buf */
-        hexShiftXor(i, buf, flip, binary, fo, hash);
+        hexShiftXor(i, buf, flip, binary, fo, hash_str);
 
     if (fi != stdin)
         fclose (fi);
