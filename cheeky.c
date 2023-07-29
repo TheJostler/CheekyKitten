@@ -129,7 +129,7 @@ int shuffleXorInput(FILE *fi, FILE *fo, int flip, int binary, char *key){
     while ((bytes = fread (buf, sizeof *buf, readsz, fi)) == readsz) {
         for (i = 0; i < readsz; i++) {
             if(hexShiftXor(i, buf, flip, binary, fo, hash_str) == 1) {
-		        calc_sha_256(hash, hash, 64);
+		        calc_sha_256(hash, hash_str, 64);
                 hash_to_string(hash_str, hash);
 	    }
         }
