@@ -90,7 +90,7 @@ int hexShiftXor(int i, unsigned char buf[BUFSZ], int flip, int binary, FILE *fo,
     return 0;
 }
 
-int shuffleInput(FILE *fi, FILE *fo, int flip, int binary){ 
+int shuffleInputFromFile(FILE *fi, FILE *fo, int flip, int binary){ 
     unsigned char buf[BUFSZ] = {0};
     size_t bytes = 0, i, readsz = sizeof buf;
 
@@ -116,7 +116,7 @@ int shuffleInput(FILE *fi, FILE *fo, int flip, int binary){
     return 0;
 }
 
-int shuffleXorInput(FILE *fi, FILE *fo, int flip, int binary, char *key){
+int shuffleXorInputFromFile(FILE *fi, FILE *fo, int flip, int binary, char *key){
     unsigned char buf[BUFSZ] = {0};
     size_t bytes = 0, i, readsz = sizeof buf;
 
@@ -211,10 +211,10 @@ int main (int argc, char **argv) {
     }
 
     if(cipher) {
-        shuffleXorInput(fi, fo, flip, binary, key);
+        shuffleXorInputFromFile(fi, fo, flip, binary, key);
     }
     else {
-        shuffleInput(fi, fo, flip, binary);
+        shuffleInputFromFile(fi, fo, flip, binary);
     }
 
     
