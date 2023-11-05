@@ -51,7 +51,7 @@ int hexShift(int i, unsigned char buf[BUFSZ], int flip, int binary, FILE *fo){
     return 0;
 }
 
-int hexShiftXor(int i, unsigned char buf[BUFSZ], int flip, int binary, FILE *fo, char *hash){
+int hexShiftXor(int i, unsigned char buf[BUFSZ], int flip, int binary, FILE *fo, uint8_t hash[32]){
     static int k;
     if (i%2 == 0) {
         int x = buf[i];
@@ -128,9 +128,9 @@ int shuffleXorInput(FILE *fi, FILE *fo, int flip, int binary, char *key){
     /* read/output BUFSZ bytes at a time */
     while ((bytes = fread (buf, sizeof *buf, readsz, fi)) == readsz) {
         for (i = 0; i < readsz; i++) {
-            if(hexShiftXor(i, buf, flip, binary, fo, hash_str) == 1) {
-		        calc_sha_256(hash, hash_str, 64);
-                hash_to_string(hash_str, hash);
+       	    if(hexShiftXor(i, buf, flip, binary, fo, hash) == 1) {
+		calc_sha_256(hash, hash_str, 64);
+               	hash_to_string(hash_str, hash);
 	    }
         }
 
@@ -140,7 +140,7 @@ int shuffleXorInput(FILE *fi, FILE *fo, int flip, int binary, char *key){
     }
 
     for (i = 0; i < bytes; i++) /* output final partial buf */
-        hexShiftXor(i, buf, flip, binary, fo, hash_str);
+        hexShiftXor(i, buf, flip, binary, fo, hash);
 
     if (fi != stdin)
         fclose (fi);
@@ -152,7 +152,7 @@ int shuffleXorInput(FILE *fi, FILE *fo, int flip, int binary, char *key){
 }
 
 void usage (char* basename) {
-    char version[] = "CheekyKitten 0.6 Beta by Josjuar Lister 2021-2023";
+    char version[] = "CheekyKitten 0.7 Beta by Josjuar Lister 2021-2023";
     char algo[] = " -- Logical Algorithm\n";
     char usage[] = "%s%s\n\n%s [options] <input file> <output file>\n"
         "CheekyKitten will default to stdout/stdin if i/o files are not provided\n\n"
