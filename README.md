@@ -40,6 +40,8 @@ Download and compile from source:
     CheekyKitten will default to stdout/stdin if i/o files are not provided
               -h           Print this help menu
 
+              -k [key]     Encrypt shuffled output with a key
+
               -r           Reverse
  
               -b           Output as binary 
