@@ -112,7 +112,7 @@ int shuffleXorInputFromFile(FILE *fi, FILE *fo, int flip, int binary, char *key)
     unsigned char buf[BUFSZ] = {0};
     size_t bytes = 0, i, readsz = sizeof buf;
 
-    __uint8_t hash[32];
+    uint8_t hash[32];
     calc_sha_256(hash, key, strlen(key));
 
     /* read/output BUFSZ bytes at a time */
@@ -190,12 +190,12 @@ int main (int argc, char **argv) {
     }
     FILE *fo = argc > 1 ? fopen (argv[1], "wb") : stdout;
     if (fo == NULL) {
-        printf("error opening output file: %s\n", (char*)fo);
+        printf("error opening output file: %s\n", argv[1]);
         exit(1);
     }
     FILE *fi = argc > 0 ? fopen (argv[0], "rb") : stdin;
     if (fi == NULL) {
-        printf("error opening input file: %s\n", (char*)fi);
+        printf("error opening input file: %s\n", argv[2]);
         exit(1);
     }
 
