@@ -7,14 +7,6 @@
 
 #define BUFSZ 8
 
-static void hash_to_string(char string[65], const uint8_t hash[32])
-{
-	size_t i;
-	for (i = 0; i < 32; i++) {
-		string += sprintf(string, "%02x", hash[i]);
-	}
-}
-
 int xor(int data, int key){
     // XOR the data to encrypt.
     return data ^ key;
@@ -58,9 +50,9 @@ int hexShiftXor(int i, unsigned char buf[BUFSZ], int flip, int binary, FILE *fo,
         int y = buf[i+1];
             //and here!
         if (!flip) {
-
             int tx = x; //weird bug fix
             int ty = y; //weird bug fix
+	    //printf("[%c^%x, %c^%x]%i", x, hash[k], y, hash[k+1], k);
             x = xor(x_ixi(tx, ty), hash[k]);
             y = xor(y_ixi(tx, ty), hash[k+1]);
 		
@@ -83,7 +75,7 @@ int hexShiftXor(int i, unsigned char buf[BUFSZ], int flip, int binary, FILE *fo,
         }
         k = k + 2;
     }
-    if (k >= 64 ) {
+    if (k >= 32 ) {
 	k = 0;
 	return 1;
     }
@@ -121,16 +113,13 @@ int shuffleXorInputFromFile(FILE *fi, FILE *fo, int flip, int binary, char *key)
     size_t bytes = 0, i, readsz = sizeof buf;
 
     __uint8_t hash[32];
-    char hash_str[65];
     calc_sha_256(hash, key, strlen(key));
-    hash_to_string(hash_str, hash);
 
     /* read/output BUFSZ bytes at a time */
     while ((bytes = fread (buf, sizeof *buf, readsz, fi)) == readsz) {
         for (i = 0; i < readsz; i++) {
        	    if(hexShiftXor(i, buf, flip, binary, fo, hash) == 1) {
-		calc_sha_256(hash, hash_str, 64);
-               	hash_to_string(hash_str, hash);
+		calc_sha_256(hash, hash, 32);
 	    }
         }
 
@@ -152,7 +141,7 @@ int shuffleXorInputFromFile(FILE *fi, FILE *fo, int flip, int binary, char *key)
 }
 
 void usage (char* basename) {
-    char version[] = "CheekyKitten 0.7 Beta by Josjuar Lister 2021-2023";
+    char version[] = "CheekyKitten 0.8 Beta by Josjuar Lister 2021-2025";
     char algo[] = " -- Logical Algorithm\n";
     char usage[] = "%s%s\n\n%s [options] <input file> <output file>\n"
         "CheekyKitten will default to stdout/stdin if i/o files are not provided\n\n"
@@ -201,12 +190,12 @@ int main (int argc, char **argv) {
     }
     FILE *fo = argc > 1 ? fopen (argv[1], "wb") : stdout;
     if (fo == NULL) {
-        printf("error opening output file: %s\n", fo);
+        printf("error opening output file: %s\n", (char*)fo);
         exit(1);
     }
     FILE *fi = argc > 0 ? fopen (argv[0], "rb") : stdin;
     if (fi == NULL) {
-        printf("error opening input file: %s\n", fi);
+        printf("error opening input file: %s\n", (char*)fi);
         exit(1);
     }
 
