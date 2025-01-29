@@ -141,15 +141,15 @@ int shuffleXorInputFromFile(FILE *fi, FILE *fo, int flip, int binary, char *key)
 }
 
 void usage (char* basename) {
-    char version[] = "CheekyKitten 0.9 Beta by Josjuar Lister 2021-2025";
-    char algo[] = " -- Logical Algorithm\n";
-    char usage[] = "%s%s\n\n%s [options] <input file> <output file>\n"
-        "CheekyKitten will default to stdout/stdin if i/o files are not provided\n\n"
+    char version[] = "CheekyKitten 0.9 Beta by Josjuar Lister 2021-2025\n";
+    char usage[] = "%sA cipher and binary obfuscation tool.\n\n"
+	    "Usage: %s [options] <input file> <output file>\n"
+	"CheekyKitten will default to stdin/stdout if i/o files are not provided.\n\n"
         "\t-h           Print this help menu\n"
         "\t-k [Key]     Encrypt shuffled output with a key\n"
         "\t-r           Reverse (or Decrypt if used with Key argument)\n"
         "\t-x           Output as hex\n";
-        fprintf(stderr, usage, version, algo, basename);
+        fprintf(stderr, usage, version, basename);
 }
 
 int main (int argc, char **argv) {
