@@ -44,7 +44,7 @@ Download and compile from source:
 
               -r           Reverse
  
-              -b           Output as binary 
+              -x           Output as hex 
  
 Some examples:
 
