@@ -36,7 +36,7 @@ Download and compile from source:
 
 # USAGE
  
-    cheeky / cheekytesting [options] -input file- -output file-
+    cheeky [options] -input file- -output file-
     CheekyKitten will default to stdout/stdin if i/o files are not provided
               -h           Print this help menu
 
@@ -48,13 +48,13 @@ Download and compile from source:
  
 Some examples:
 
-`cheeky file file.cheek`       -will input binary from file and write cheeky code to .cheek file-
+`cheeky file file.cheek`       -will input binary from file and write binary to .cheek file-
 
-`cheeky file`                  -will input binary from file and output human readable cheeky code(hex) from IXI function-
+`cheeky file`                  -will input binary from file and output binary from IXI function-
 
-`cheeky file -b > file.cheek`  -will input binary from file and output binary cheeky code, bash then redirects to file.cheek-
+`cheeky file -x > file.cheek`  -will input binary from file and outputs hex code, bash then redirects to file.cheek-
 
-`echo "hi" | cheeky`           -will input binary from stdin and output human readable cheeky code(hex)-
+`echo "hi" | cheeky`           -will input binary from stdin and output binary-
 
 # .cheek File mime-types
 
