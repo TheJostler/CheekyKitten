@@ -1,6 +1,7 @@
 name=cheeky
 dest=/usr/bin
 cc=gcc
+flags=-Wall -Werror -Wextra -O3 -ffast-math
 deps = $(wildcard *.h)
 scrs = $(wildcard *.c)
 objs = $(patsubst %.c,./obj/%.o,$(scrs))
@@ -9,10 +10,11 @@ dir = if [ ! -d $(o) ];then mkdir $(o);fi
 
 $(o)/%.o: %.c $(deps)
 	$(dir)
-	$(cc) -c -o $@ $< 
+	$(cc) $(flags) -c -o $@ $< 
 
 $(name): $(objs)
-	$(cc) -o $@ $^ 
+	$(cc) $(flags)  -o $@ $^
+	strip $(name)
 
 install:
 	cp $(name) $(dest)/$(name)
